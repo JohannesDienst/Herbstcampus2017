@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Mutationstesten</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css">
+    
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style>
+      .fragment { font-size: 2.11em !important; font-weight: bold !important; }
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Und wer testet die Tests?</h2>
+          <h3>Mutationstesten mit PIT</h3>
+          <h4 style="color:#e7ad52;">Johannes Dienst</h3>
+        </section>
+
+        <section>
+          <h2><span style="color:#e7ad52;">Warum</span> Mutationstesten?</h2>
+        </section>
+        <section>
+          <h2>Legacy Projekt</h2>
+        </section>
+        <section>
+          <img data-src="img/grafik1.png" style="border: none;height: 650px;background:none;">
+        </section>
+        <section>
+          <h2>100% aussagekräftige Tests</h2>
+        </section>
+
+        <section>
+          <h2>100% <span style="color:#e7ad52;">Zeilenabdeckung</span></h2>
+        </section>
+        <section>
+          <h2><span style="color:#e7ad52;">Wir sind</span> fertig!</h2>
+        </section>
+        <section>
+          <h2><span style="color:#e7ad52;">So</span> einfach?</h2>
+        </section>
+
+        <section>
+          <h2><span style="color:#e7ad52;">100%</span> &ne; <span style="color:#e7ad52;">Fehlerfreiheit</span></h2>
+        </section>
+        <section>
+          <h2><span style="color:#e7ad52;">&#x26a0;</span> Subtile Bugs <span style="color:#e7ad52;">&#x26a0;</span></h2>
+        </section>
+        <section>
+          <img data-src="img/not_covered_example1.png">
+        </section>
+        <section>
+          <img data-src="img/not_covered_example2.png">
+        </section>
+
+        <section>
+          <h2>Tests härten!</h2>
+        </section>
+        <section>
+          <h2>Wie?</h2>
+        </section>
+
+        <section>
+          <h2>Mutationstesten</h2>
+          <section>
+            <h4>Richard Lipton 1971</h4>
+            <img src="img/lipton.jpg"/>
+          </section>
+          <section>
+            <img data-src="img/grafik2.png" style="border: none;height: 480px;background:none;">
+          </section>
+          <section>
+            <h2 style="color:#FFD700;">Gold Standard</h2>
+              <h2>&#x21e8; aussagekräftige Tests</h2>
+          </section>
+        </section>
+
+        <section>
+          <h2>PIT</h2>
+          <img style="background:#fff;" data-src="img/pit-black-150x152.png">
+        </section>
+        <section>
+          <h2>7 Default Mutatoren</h2>
+          <h2>12 Experimentelle Mutatoren</h2>
+        </section>
+        <section>
+          <h1>Default</h1>
+          <section>
+            <h2>Bedingungen</h2>
+            <pre><code data-trim data-noescape>
+  if (i == 0) {
+  return 0;
+}</code></pre>
+<pre><code data-trim data-noescape>
+if (i != 0) {
+  return 0;
+}</code></pre>
+          </section>
+          <section>
+            <h2>Mathematisch</h2>
+            <pre><code data-trim data-noescape>int a = b + c;</code></pre>
+            <pre><code data-trim data-noescape>int a = b - c;</code></pre>
+          </section>
+          <section>
+            <h2>Rückgabetyp</h2>
+          </section>
+          <section>
+            <h2>Entfernung von void-Methodenaufrufen</h2>
+          </section>
+        </section>
+        <section>
+          <p class="fragment fade-up">Schnell</p>
+          <p class="fragment fade-up">ant, maven, gradle etc.</p>
+          <p class="fragment fade-up">Menschenlesbare Reports</p>
+        </section>
+
+        <section>
+          <h1>Testsuite</h1>
+          <section>
+            <h2>171 Tests</h2>
+          </section>
+          <section>
+            <h2>Laufzeit</h2>
+            <p class="fragment fade-up">Ohne PIT: 0.5 min</p>
+            <p class="fragment fade-up">Mit PIT: 4 min</p>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h2>Erkenntnisse</h2>
+        </section>
+        <section>
+          <h2>Bugs</h2>
+        </section>
+        <section>
+          <h2>Seiteneffekte</h2>
+          <img data-src="img/bug_example1.png">
+        </section>
+        <section>
+          <h2>False positives</h2>
+          <img data-src="img/false_positive_example1.png">
+        </section>
+
+        <section>
+          <h1>Demo</h1>
+          <section>
+            <pre><code data-trim data-noescape>&lt;plugin&gt;
+  &lt;groupId&gt;org.pitest&lt;/groupId&gt;
+  &lt;artifactId&gt;pitest-maven&lt;/artifactId&gt;
+  &lt;version&gt;1.1.11&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;targetClasses&gt;
+      &lt;param&gt;de.*&lt;/param&gt;
+    &lt;/targetClasses&gt;
+    &lt;targetTests&gt;
+      &lt;param&gt;de.*&lt;/param&gt;
+    &lt;/targetTests&gt;
+    &lt;threads&gt;3&lt;/threads&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+            </code></pre>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape>
+              public class Fibonacci {
+
+  public int calc(int i) {
+    if (i == 0) {
+      return 0;
+    }
+
+    if (i <= 2) {
+      return 1;
+    }
+
+    return calc(i-1) + calc(i-2);
+  }
+}</code></pre>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape>@Test public void seedValue0() {
+  assertEquals(0, fib.calc(0));
+}
+
+@Test public void seedValue1() {
+  assertEquals(1, fib.calc(1));
+}
+
+@Test public void seedValue2() {
+  assertEquals(1, fib.calc(2));
+}
+
+@Test public void value3() {
+  assertEquals(2, fib.calc(3));
+}
+
+@Test public void value11() {
+  assertEquals(89, fib.calc(11));
+}</code></pre>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape>public class Sort {
+
+  public static List<Integer> sort(List<Integer> coll) {
+    List<Integer> list = new ArrayList<>();
+    list.addAll(coll);
+
+    Collections.sort(list);
+    log(list);
+
+    return Collections.unmodifiableList(list);
+  }
+
+  private static void log(List<Integer> list) {
+    System.out.println(
+      list.stream().map(Object::toString)
+      .collect(Collectors.joining(", ")));
+  }
+}</code></pre>
+          </section>
+          <section>
+            <pre><code class="java" data-trim data-noescape>@Test public void emptyList() {
+  assertEquals(true, Sort.sort(Collections.&lt;Integer&gt;emptyList()).isEmpty());
+}
+
+@Test public void oneList() {
+  assertEquals(false,
+    Sort.sort(Stream.of(42).collect(Collectors.toList())).isEmpty());
+}
+
+@Test public void twoList() {
+  assertEquals(new Integer(1),
+    Sort.sort(Stream.of(2, 3, 1, 8).collect(Collectors.toList())).get(0));
+}</code></pre>
+          </section>
+        </section>
+        <section>
+          <img data-src="img/report_overview.png">
+        </section>
+        <section>
+          <img data-src="img/package_overview.png">
+        </section>
+        <section>
+          <img data-src="img/fib_1.png">
+        </section>
+        <section>
+          <img data-src="img/fib_2.png">
+        </section>
+        <section>
+          <img data-src="img/sort_1.png">
+        </section>
+        <section>
+          <img data-src="img/sort_2.png">
+        </section>
+
+        <section>
+          <h1>Fazit</h1>
+          <p class="fragment fade-up"><span style="color:#e7ad52;">100%</span> &ne; <span style="color:#e7ad52;">Fehlerfreiheit</span></p>
+          <p class="fragment fade-up">Arbeitsaufwand</p>
+          <p class="fragment fade-up">Bessere Testsuite</p>
+        </section>
+
+        <section style="font-size:90%;">
+          <h2 class="clearfix" style="width: 100%; height: 220px;">
+            <div style="float: left; width: 20%;">
+              <img src="img/contact/TwitterLogo.png"/>
+            </div>
+            <div style="float: left; width: 80%; line-height: 220px; text-transform: none;">JohannesDienst</div>
+          </h2>
+          <h2 class="clearfix" style="width: 100%; height: 220px;">
+            <div style="float: left; width: 20%;">
+              <img src="img/contact/home.png">
+            </div>
+            <div style="float: left; width: 80%; line-height: 220px; text-transform: none;">johannesdienst.net</div>
+          </h2>
+          <h2 class="clearfix" style="width: 100%; height: 220px;">
+            <div style="float: left; width: 20%;">
+              <img src="img/contact/fa-paper-plane.png">
+            </div>
+            <div style="float: left; width: 80%; line-height: 220px; text-transform: none;">info@johannesdienst.net</div>
+          </h2>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+      Reveal.configure({ slideNumber: true });
+      // Slide number formatting can be configured using these variables:
+      //  "h.v":  horizontal . vertical slide number (default)
+      //  "h/v":  horizontal / vertical slide number
+      //    "c":  flattened slide number
+      //  "c/t":  flattened slide number / total slides
+      Reveal.configure({ slideNumber: 'c/t' });
+    </script>
+  </body>
+</html>

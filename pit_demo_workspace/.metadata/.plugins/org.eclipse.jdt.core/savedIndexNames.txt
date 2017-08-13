@@ -1,0 +1,20 @@
+INDEX VERSION 1.130+/home/jdienst/git/BOBKonf2017/pit_demo_workspace/.metadata/.plugins/org.eclipse.jdt.core
+3804736869.index
+3416074457.index
+3775365670.index
+1108007216.index
+1702748700.index
+120769981.index
+2435513923.index
+1770514769.index
+344564468.index
+2817895166.index
+3549193594.index
+1053359070.index
+1462267995.index
+3221685009.index
+490501644.index
+4057414270.index
+1551311835.index
+3628201335.index
+2082949759.index
