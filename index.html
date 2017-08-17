@@ -37,6 +37,12 @@
           <h2><span style="color:#e7ad52;">Warum</span> Mutationstesten?</h2>
         </section>
         <section>
+          <h2><span style="color:#e7ad52;">Bekannte Überdeckungsmaße?</h2>
+          <p class="fragment fade-up">Zeilen</p>
+          <p class="fragment fade-up">Zweige</p>
+          <p class="fragment fade-up">Pfade</p>
+        </section>
+        <section>
           <h2>Legacy Projekt</h2>
         </section>
         <section>
@@ -91,6 +97,7 @@
           </section>
         </section>
 
+<!-- ///////////////////////////////////////////////////////////////////////////////////////// -->
         <section>
           <h2>PIT</h2>
           <img style="background:#fff;" data-src="img/pit-black-150x152.png">
@@ -101,34 +108,80 @@
         </section>
         <section>
           <h1>Default</h1>
-          <section>
-            <h2>Bedingungen</h2>
+        </section>
+        <section>
+            <h2>Bedingungsgrenzen</h2>
             <pre><code data-trim data-noescape>
-  if (i == 0) {
+  if (i &lt; 0) {
   return 0;
 }</code></pre>
 <pre><code data-trim data-noescape>
-if (i != 0) {
+if (i &lt;= 0) {
   return 0;
 }</code></pre>
-          </section>
-          <section>
-            <h2>Mathematisch</h2>
-            <pre><code data-trim data-noescape>int a = b + c;</code></pre>
-            <pre><code data-trim data-noescape>int a = b - c;</code></pre>
-          </section>
-          <section>
-            <h2>Rückgabetyp</h2>
-          </section>
-          <section>
-            <h2>Entfernung von void-Methodenaufrufen</h2>
-          </section>
+        </section>
+
+        <section>
+          <h2>Inkremente</h2>
+          <pre><code data-trim data-noescape>public int incMe(int i) {
+  return i++; 
+}</code></pre>
+<pre><code data-trim data-noescape>public int incMe(int i) {
+  return i--; 
+}</code></pre>
+        </section>
+
+        <section>
+          <h2>Invertierung von Negativen</h2>
+          <pre><code data-trim data-noescape>public int giveMeNeg(int i) {
+  return -i; 
+}</code></pre>
+<pre><code data-trim data-noescape>public int giveMeNeg(int i) {
+  return i; 
+}</code></pre>
+        </section>
+
+        <section>
+          <h2>Mathematisch</h2>
+          <pre><code data-trim data-noescape>int a = b + c;</code></pre>
+          <pre><code data-trim data-noescape>int a = b - c;</code></pre>
+        </section>
+
+        <section>
+          <h2>Bedingungsnegierung</h2>
+          <pre><code data-trim data-noescape>
+  if (i == 0) {
+  return true;
+}</code></pre>
+<pre><code data-trim data-noescape>
+if (i != 0) {
+  return true;
+}</code></pre>
+        </section>
+
+        <section>
+          <h2>Rückgabetyp</h2>
+          <pre><code data-trim data-noescape>return new ArrayList<Integer>();</code></pre>
+          <pre><code data-trim data-noescape>return null;</code></pre>
+        </section>
+
+        <section>
+          <h2>Entfernung von void-Methodenaufrufen</h2>
+        </section>
+
+        <section>
+          <h2>Vorteile von PIT</h2>
         </section>
         <section>
           <p class="fragment fade-up">Schnell</p>
+          <p class="fragment fade-up">&#x21e8; Dank Parallelisierung</p>
+        </section>
+        <section>
           <p class="fragment fade-up">ant, maven, gradle etc.</p>
           <p class="fragment fade-up">Menschenlesbare Reports</p>
         </section>
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////// -->
 
         <section>
           <h1>Testsuite</h1>
@@ -267,6 +320,105 @@ if (i != 0) {
         </section>
         <section>
           <img data-src="img/sort_2.png">
+        </section>
+
+        <section>
+          <h1>Livedemo: Mutationstesten von log4j</h1>
+        </section>
+        <section>
+          <h1>Testsuite</h1>
+          <h3>238 Tests</h3>
+          <h3>02:24 Minuten</h3>
+        </section>
+
+        <section>
+          <pre><code data-trim data-noescape>&lt;configuration&gt;
+  &lt;targetClasses&gt;
+    &lt;param&gt;org.apache.log4j.helpers.*&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.pattern.*&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.Category&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.MDC&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.PatternLayout&lt;/param&gt;
+  &lt;/targetClasses&gt;
+  &lt;targetTests&gt;
+    &lt;param&gt;org.apache.log4j.helpers.*&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.pattern.*&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.CategoryTest&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.MDCTestCase&lt;/param&gt;
+    &lt;param&gt;org.apache.log4j.PatternLayoutTest&lt;/param&gt;
+  &lt;/targetTests&gt;
+            </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim data-noescape>&lt;threads&gt;3&lt;/threads&gt;
+  &lt;maxMutationsPerClass&gt;20&lt;/maxMutationsPerClass&gt;
+  &lt;coverageThreshold&gt;10&lt;/coverageThreshold&gt;
+  &lt;reportsDirectory&gt;target/pit&lt;/reportsDirectory&gt;
+  &lt;historyInputFile&gt;${project.basedir}/historypit&lt;/historyInputFile&gt;
+  &lt;historyOutputFile&gt;${project.basedir}/historypit&lt;/historyOutputFile&gt;
+&lt;/configuration&gt;
+            </code></pre>
+        </section>
+
+        <section>
+          <h1>Testen mit PIT</h1>
+          <section>
+            <p style="text-align: left;">
+========================================================
+- Timings
+========================================================
+> scan classpath : < 1 second <br>
+> coverage and dependency analysis : 4 seconds <br>
+> build mutation tests : < 1 second <br>
+> run mutation analysis : 1 minutes and 11 seconds<br>
+--------------------------------------------------------<br>
+> Total  : 1 minutes and 16 seconds<br>
+--------------------------------------------------------
+            </p>
+          </section>
+          <section>
+            <p style="text-align: left;">
+=========================================================<br>
+- Statistics
+=========================================================<br>
+>> Generated 570 mutations Killed 174 (31%) <br>
+>> Ran 490 tests (0.86 tests per mutation) <br>
+            </p>
+          </section>
+          <section>
+            <p style="text-align: left;">
+=========================================================<br>
+- Mutators
+=========================================================<br>
+> org.pitest.....gregor.mutators.ConditionalsBoundaryMutator<br>
+>> Generated 70 Killed 19 (27%)<br>
+> KILLED 19 SURVIVED 25 TIMED_OUT 0 NON_VIABLE 0 <br>
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 <br>
+> NO_COVERAGE 26<br>
+...
+            </p>
+          </section>
+          <section>
+            <p style="text-align: left;">
+[INFO] -------------------------------------------------------------<br>
+[INFO] BUILD SUCCESS<br>
+[INFO] -------------------------------------------------------------<br>
+[INFO] Total time: 01:21 min<br>
+[INFO] Finished at: 2017-08-17T20:02:12+02:00<br>
+[INFO] Final Memory: 13M/60M<br>
+[INFO] -------------------------------------------------------------<br>
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <img src="img/log4j_pit_report_summary.png"/>
+        </section>
+        <section>
+          <img src="img/log4j_pit_helpers_summary.png"/>
+        </section>
+        <section>
+          <img src="img/log4j_pit_DateTimeDateFormat.png"/>
         </section>
 
         <section>
